@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Credenciais Cadastradas{% endblock %}
+{% block content %}
+
+<div class="container-fluid mt-4 px-3">
+  <h2 class="text-center mb-4">Lutas (Atualização Automática)</h2>
+
+  <!-- Filtro de Mat / Tapete -->
+  <div class="d-flex justify-content-center mb-3">
+    <select id="matFilter" class="form-select w-auto">
+      <option value="">Todos os Tapetes</option>
+    </select>
+  </div>
+
+  <!-- Wrapper com scroll horizontal -->
+  <div class="table-container d-flex justify-content-center">
+    <div class="table-responsive" style="overflow-x: auto; max-width: 100%;">
+      <table id="lutas-tabela"
+        class="table table-hover table-bordered align-middle text-center"
+        style="min-width: 100%; max-width: 100%; white-space: nowrap;">
+        <thead class="table-dark">
+          <tr>
+            <th>Match #</th>
+            <th>Mat</th>
+            <th>Categoria</th>
+            <th>Round</th>
+            <th>Atleta 1</th>
+            <th>Atleta 2</th>
+            <th>Ganhador</th>
+            <th>Resultado</th>
+            <th>Início</th>
+            <th>Fim</th>
+          </tr>
+        </thead>
+        <tbody id="lutas-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* 🔹 Ajustes para responsividade */
+  @media (max-width: 768px) {
+    table {
+      font-size: 0.8rem;
+    }
+    th, td {
+      padding: 0.4rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+    }
+    .form-select {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* 🔹 Scroll mais agradável */
+  .table-responsive::-webkit-scrollbar {
+    height: 6px;
+  }
+  .table-responsive::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+  .table-responsive::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+</style>
+
+<script>
+  let todasLutas = [];
+
+  function formatDateTime(datetimeStr) {
+    if (!datetimeStr) return "";
+    const dt = new Date(datetimeStr);
+    return dt.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+  }
+
+  function flagIcon(flagValue) {
+    return flagValue === 1 ? "✅" : "❌";
+  }
+
+  function carregarLutas() {
+    fetch('/lutas-json/')
+      .then(response => response.json())
+      .then(data => {
+        todasLutas = data.lutas || [];
+        atualizarDropdown();
+        renderizarTabela();
+      });
+  }
+
+  function atualizarDropdown() {
+    const dropdown = document.getElementById("matFilter");
+    const matsUnicos = [...new Set(todasLutas.map(l => l.tapete))].filter(Boolean);
+    dropdown.innerHTML = '<option value="">Todos os Tapetes</option>';
+    matsUnicos.forEach(mat => {
+      const opt = document.createElement("option");
+      opt.value = mat;
+      opt.textContent = `Tapete ${mat}`;
+      dropdown.appendChild(opt);
+    });
+  }
+
+  function renderizarTabela() {
+    const corpoTabela = document.getElementById("lutas-body");
+    corpoTabela.innerHTML = '';
+
+    const filtroMat = document.getElementById("matFilter").value;
+    const lutasFiltradas = filtroMat ? todasLutas.filter(l => l.tapete == filtroMat) : todasLutas;
+
+    lutasFiltradas.forEach(luta => {
+      const linha = document.createElement('tr');
+
+      const atleta1 = `
+        <div class="${luta.id_atleta_ganhador === luta.id_atleta1 ? 'fw-bold text-success' : ''}">
+          ID: ${luta.id_atleta1} <br>
+          Draw Rank: ${luta.atleta1_draw_rank || '-'}<br>
+          Injured?: ${flagIcon(luta.atleta1_flag_injured)}<br>
+          Seeded?: ${flagIcon(luta.atleta1_flag_seeded)}
+        </div>`;
+
+      const atleta2 = `
+        <div class="${luta.id_atleta_ganhador === luta.id_atleta2 ? 'fw-bold text-success' : ''}">
+          ID: ${luta.id_atleta2} <br>
+          Draw Rank: ${luta.atleta2_draw_rank || '-'}<br>
+          Injured?: ${flagIcon(luta.atleta2_flag_injured)}<br>
+          Seeded?: ${flagIcon(luta.atleta2_flag_seeded)}
+        </div>`;
+
+      linha.innerHTML = `
+        <td>${luta.numero || ''}</td>
+        <td>${luta.tapete}</td>
+        <td>${luta.audienceName}<br><small>${luta.sportAlternateName} - ${luta.weightCategoryName}</small></td>
+        <td>${luta.round}</td>
+        <td>${atleta1}</td>
+        <td>${atleta2}</td>
+        <td class="fw-bold">${luta.id_atleta_ganhador || '-'}</td>
+        <td>${luta.resultado || ''}<br><small>${luta.tipo_vitoria || ''}</small></td>
+        <td>${formatDateTime(luta.data_inicio)}</td>
+        <td>${formatDateTime(luta.data_fim)}</td>
+      `;
+      corpoTabela.appendChild(linha);
+    });
+  }
+
+  document.getElementById("matFilter").addEventListener("change", renderizarTabela);
+
+  carregarLutas();
+  setInterval(carregarLutas, 5000);
+</script>
+
+<!-- Bibliotecas externas -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.9.0/dist/feather.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+[tool.poetry]
+name = "cdpd-backend"
+version = "0.1.0"
+description = ""
+authors = ["Agata Aja <agataaja@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+django = "^5.0"
+djangorestframework = "^3.15"
+django-cors-headers = "^4.3"
+django-allauth = "^64.0"
+dj-rest-auth = "^6.0"
+djangorestframework-simplejwt = "^5.3"
+requests = "^2.31"
+stripe = "^11.6"
+google-auth = "^2.24"
+google-auth-oauthlib = "^1.0"
+django-tenants = "^3.6"
+channels = "^4.1"
+channels-redis = "^4.2"
+psycopg2-binary = "^2.9"
+celery = "^5.4"
+redis = "^5.0"
+dj-stripe = "^2.9"
+drf-spectacular = "^0.27.0"
+
+# Env
+python-dotenv = "^1.0"
+dj-database-url = "^3.1.2"
+whitenoise = "^6.12.0"
+gunicorn = "^25.1.0"
+uvicorn = "^0.42.0"
+cryptography = "^46.0.5"
+django-storages = "^1.14.6"
+boto3 = "^1.42.77"
+sib-api-v3-sdk = "^7.6.0"
+dotenv = "^0.9.9"
+
+[tool.poetry.group.lightml.dependencies]
+pandas = "^2.2"
+numpy = "^2.0"
+joblib = "^1.4"
+
+[tool.poetry.group.ml.dependencies]
+# Data / ML
+scikit-learn = "^1.5"
+xgboost = "^2.1"
+lightgbm = "^4.3"
+scipy = "^1.13"
+
+# Deep Learning / NLP (opcional)
+torch = "^2.3"
+transformers = "^4.44"
+
+# Reporting
+XlsxWriter = "^3.2"
+weasyprint = "^62.0"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+

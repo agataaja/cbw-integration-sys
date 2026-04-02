@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Associar Evento Arena{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Associar Evento SGE</h2>
+  <p><strong>Evento SGE:</strong> {{ evento_sge.descricao }} ({{ evento_sge.escopo }})</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="arenaSelect">Selecione o evento Arena:</label>
+      <select id="arenaSelect" name="pk_arena" class="form-select">
+        {% for arena in eventos_arena %}
+        <option value="{{ arena.pk }}">{{ arena.nome_evento }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Associar</button>
+    <a href="{% url 'polls:eventos_sge_list' %}" class="btn btn-secondary mt-3">Voltar</a>
+  </form>
+</div>
+{% endblock %}
