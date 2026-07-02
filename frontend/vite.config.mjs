@@ -28,8 +28,16 @@ export default defineConfig(() => {
     },
     server: {
       port: 3000,
+      host:'0.0.0.0',
       proxy: {
         // https://vitejs.dev/config/server-options.html
+      },
+      hmr: {
+        host: "localhost",
+        port: 3000,
+      },
+      watch: {
+        usePolling: true,
       },
     },
   }

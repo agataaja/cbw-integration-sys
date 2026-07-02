@@ -76,6 +76,52 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
  */
 const _nav = [
   {
+    component: CNavTitle,
+    name: 'Integrations',
+  },
+  {
+    component: CNavGroup,
+    name: 'Arena Ops',
+    to: '/arena',
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Clients',
+        to: '/arena/clients',
+      },
+      {
+        component: CNavItem,
+        name: 'Sync',
+        to: '/arena/sync',
+      },
+      {
+        component: CNavItem,
+        name: 'Bridge Sync',
+        to: '/arena/bridge',
+      },
+      {
+        component: CNavItem,
+        name: 'Events',
+        to: '/arena/events',
+      },
+      {
+        component: CNavItem,
+        name: 'Fights',
+        to: '/arena/fights',
+      },
+      {
+        component: CNavItem,
+        name: 'Fighters',
+        to: '/arena/fighters',
+      },
+    ],
+  },
+  
+]
+
+const legacy_nav = [
+  {
     component: CNavItem,
     name: 'Dashboard',
     to: '/dashboard',
@@ -105,6 +151,7 @@ const _nav = [
     component: CNavTitle,
     name: 'Components',
   },
+  
   {
     component: CNavGroup,
     name: 'Base',
@@ -564,12 +611,13 @@ const _nav = [
       },
     ],
   },
+
   {
     component: CNavItem,
     name: 'Docs',
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
-]
+  },]
+
 
 export default _nav

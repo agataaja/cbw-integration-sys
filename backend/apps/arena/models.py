@@ -3,89 +3,122 @@ from django.db import models
 # Create your models here.
 
 
-class WebhookPayload(models.Model):
+class ArenaWebhookPayload(models.Model):
 
     received_at = models.DateTimeField(auto_now_add=True)
     payload = models.JSONField()
+    
 
+class ArenaClient(models.Model):
 
-class Luta(models.Model):
-
-    id = models.CharField(max_length=50, primary_key=True)  # UUID + id_evento
-    id_categoria_arena = models.CharField(max_length=150, null=True, blank=True)
-    id_evento = models.IntegerField()
-    id_atleta1 = models.IntegerField()
-    id_atleta2 = models.IntegerField()
-    flag_finalizado = models.IntegerField()
-    round = models.CharField(max_length=150)
-    id_atleta_ganhador = models.IntegerField(null=True, blank=True)
-    sportAlternateName = models.CharField(max_length=150)
-    weightCategoryName = models.CharField(max_length=150)
-    audienceName = models.CharField(max_length=150)
-    id_classe_peso = models.IntegerField(null=True, blank=True)
-
-    atleta1_flag_injured = models.IntegerField(null=True, blank=True)
-    atleta1_flag_seeded = models.IntegerField(null=True, blank=True)
-    atleta1_draw_rank = models.CharField(max_length=10, null=True, blank=True)
-    atleta1_RobinRank = models.CharField(max_length=10, null=True, blank=True)
-
-    atleta2_flag_injured = models.IntegerField(null=True, blank=True)
-    atleta2_flag_seeded = models.IntegerField(null=True, blank=True)
-    atleta2_draw_rank = models.CharField(max_length=10, null=True, blank=True)
-    atleta2_RobinRank = models.CharField(max_length=10, null=True, blank=True)
-
-    resultado = models.CharField(max_length=30, null=True, blank=True)
-    tipo_vitoria = models.CharField(max_length=10, null=True, blank=True)
-
-    atleta1_ranking_point = models.IntegerField(null=True, blank=True)
-    atleta2_ranking_point = models.IntegerField(null=True, blank=True)
-
-    numero = models.IntegerField(null=True, blank=True)
-    tapete = models.CharField(max_length=10)
-
-    data_inicio = models.DateTimeField(null=True, blank=True)
-    data_fim = models.DateTimeField(null=True, blank=True)
-
-    is_temporary = models.BooleanField(default=False)
-
-
-class EventosSge(models.Model):
     id = models.AutoField(primary_key=True)
-    id_sge = models.IntegerField(unique=True)  # ID externo do SGE
-    local = models.CharField(max_length=50, null=True, blank=True)
-    data_inicio = models.DateTimeField(null=True, blank=True)
-    data_fim = models.DateTimeField(null=True, blank=True)
-    id_tipo = models.IntegerField()
-    descricao = models.CharField(max_length=150, null=True, blank=True)
-    escopo = models.CharField(max_length=50, null=True, blank=True)
-    audienceName = models.CharField(max_length=50, null=True, blank=True)
-    ano = models.IntegerField(null=True, blank=True)
+    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    host = models.CharField(max_length=255, null=True, blank=True)
+    api_key = models.CharField(max_length=255)
+    client_id = models.CharField(max_length=255)
+    client_secret = models.CharField(max_length=255)
+    grant_type = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
 
-class CredentialsArena(models.Model):
+class ArenaSportEvent(models.Model):
+
     id = models.AutoField(primary_key=True)
-    client_id = models.CharField(max_length=150, null=True, blank=True)
-    client_secret = models.CharField(max_length=150, null=True, blank=True)
-    api_key = models.CharField(max_length=150, null=True, blank=True)
-    nome_maquina = models.CharField(max_length=150, null=True, blank=True)
+    arena_client = models.ForeignKey(ArenaClient, on_delete=models.CASCADE, related_name='events')
+    event_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+    
+class ArenaSession(models.Model):
 
-class EventosArena(models.Model):
     id = models.AutoField(primary_key=True)
-    id_arena = models.CharField(max_length=100, unique=True)  # ID externo do Arena
-    nome_evento = models.CharField(max_length=100)
-    isTeamEvent = models.BooleanField()
-    isBeachWrestlingTournament = models.BooleanField()
-    audienceName = models.CharField(max_length=50, null=True, blank=True)
+    arena_sport_event = models.ForeignKey(ArenaSportEvent, on_delete=models.CASCADE, related_name='sessions')
+    session_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    # Relacionamento: uma credencial pode ter vários eventos
-    credencial = models.ForeignKey(
-        CredentialsArena, on_delete=models.CASCADE, related_name="eventos"
-    )
+    def __str__(self):
+        return self.name
+    
+class ArenaMat(models.Model):
 
-    # Relacionamento N:N com eventos SGE
-    eventos_sge = models.ManyToManyField(EventosSge, related_name="eventos_arena")
+    id = models.AutoField(primary_key=True)
+    arena_session = models.ForeignKey(ArenaSession, on_delete=models.CASCADE, related_name='mats')
+    mat_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+    
+class ArenaSportEventWeightCategory(models.Model):
 
+    id = models.AutoField(primary_key=True)
+    arena_sport_event = models.ForeignKey(ArenaSportEvent, on_delete=models.CASCADE, related_name='weight_categories')
+    category_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+    
+class ArenaFight(models.Model):
 
+    id = models.AutoField(primary_key=True)
+    arena_sport_event_weight_category = models.ForeignKey(ArenaSportEventWeightCategory, on_delete=models.CASCADE, related_name='fights')
+    fight_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class ArenaFighter(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    fight = models.ForeignKey(ArenaFight, on_delete=models.CASCADE, related_name='fighters')
+    fighter_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class ArenaAthlete(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    fighter = models.ForeignKey(ArenaFighter, on_delete=models.CASCADE, related_name='athletes')
+    athlete_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class ArenaPerson(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    athlete = models.ForeignKey(ArenaAthlete, on_delete=models.CASCADE, related_name='persons')
+    person_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class ArenaWebhook(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    arena_client = models.ForeignKey(ArenaClient, on_delete=models.CASCADE, related_name='webhooks')
+    webhook_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

@@ -1,27 +1,24 @@
 from django.urls import path
 
-from . import views
-
+from .views import (
+    ArenaClientDetailAPIView,
+    ArenaClientListCreateAPIView,
+    ArenaEventStructureSyncAPIView,
+    ArenaFightListAPIView,
+    ArenaFighterListAPIView,
+    ArenaSportEventListAPIView,
+    ArenaSportEventSyncAPIView,
+    ArenaWebhookAPIView,
+)
 app_name = 'apps.arena'
 
 urlpatterns = [
-    path('', views.index, name='base'),
-    path('preview/', views.preview_view, name='preview'),
-    path('arena-web-hooking/', views.arena_receiver, name='arena-web-hooking'),
-    path('arena-web-hooking-show/', views.arena_show, name='arena-web-hooking-show'),
-    path('pbi-repo/', views.pbi_view, name='pbi-repo'),
-    path('lutas-json/', views.lutas_json),
-    path("credentials/", views.credentials_list, name="credentials_list"),
-    path("credentials/new/", views.credentials_create, name="credentials_create"),
-    path("credentials/<int:pk>/edit/", views.credentials_edit, name="credentials_edit"),
-    path("credentials/<int:pk>/delete/", views.credentials_delete, name="credentials_delete"),
-    path('eventos-sge/', views.eventos_sge_list, name='eventos_sge_list'),
-    path('sync_eventos_sge/', views.sync_eventos_sge, name='sync_eventos_sge'),
-    path("credentials/<int:pk>/sync/", views.sync_eventos_arena, name="sync_eventos_arena"),
-    path("eventos-arena/<int:pk>", views.eventos_arena_list, name="eventos_arena_list"),
-    path("arena/<int:pk_arena>/associate-sge/<int:pk_sge>/", views.associate_sge_arena_event,
-         name="associate_sge_arena_event"),
-    path("sge/<int:pk_sge>/associate-arena/", views.select_arena_for_sge, name="associate_arena_event"),
-
-
+    path('clients/', ArenaClientListCreateAPIView.as_view(), name='arena-clients-list-create'),
+    path('clients/<int:pk>/', ArenaClientDetailAPIView.as_view(), name='arena-clients-detail'),
+    path('arena-webhook/', ArenaWebhookAPIView.as_view(), name='arena-api-webhook'),
+    path('sync/sport-events/', ArenaSportEventSyncAPIView.as_view(), name='arena-sync-sport-events'),
+    path('sync/event-structure/', ArenaEventStructureSyncAPIView.as_view(), name='arena-sync-event-structure'),
+    path('sport-events/', ArenaSportEventListAPIView.as_view(), name='arena-sport-events-list'),
+    path('fights/', ArenaFightListAPIView.as_view(), name='arena-fights-list'),
+    path('fighters/', ArenaFighterListAPIView.as_view(), name='arena-fighters-list'),
 ]

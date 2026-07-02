@@ -1,224 +1,125 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import json
-from .models import WebhookPayload, CredentialsArena, EventosArena, EventosSge, Luta
-from .services.webhook_handler import handle_webhook
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CredentialsArenaForm
-from.services.sge_handler import process_eventos_sge
-from.services.arena_handler import fetch_eventos_arena
-from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+
+from .models import ArenaClient, ArenaFight, ArenaFighter, ArenaSportEvent
+from .serializers import (
+    ArenaClientSerializer,
+    ArenaClientSyncRequestSerializer,
+    ArenaEventSyncRequestSerializer,
+    ArenaFightSerializer,
+    ArenaFighterSerializer,
+    ArenaSportEventSerializer,
+    ArenaWebhookRequestSerializer,
+)
+from .services.sync import sync_event_structure, sync_sport_events
+from .services.webhook_ingress import ingest_arena_webhook
 
 
-def sync_eventos_arena(request, pk):
-
-    try:
-        total = fetch_eventos_arena(pk)
-        messages.success(request, f"{total} eventos sincronizados com sucesso!")
-    except Exception as e:
-        messages.error(request, f"Erro ao sincronizar: {str(e)}")
-
-    return redirect("polls:eventos_arena_list", pk=pk)
+class ArenaSportEventPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = "page_size"
+    max_page_size = 100
 
 
-def eventos_sge_list(request):
+class ArenaClientListCreateAPIView(APIView):
+    def get(self, request):
+        queryset = ArenaClient.objects.all().order_by("id")
+        serializer = ArenaClientSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    eventos = EventosSge.objects.all()
-
-    ano_filtro = request.GET.get('ano')
-    escopo_filtro = request.GET.get('escopo')
-
-    # Filtrar por ano se informado
-    if ano_filtro:
-        eventos = eventos.filter(ano=ano_filtro)
-
-    # Filtrar por escopo se informado
-    if escopo_filtro:
-        eventos = eventos.filter(escopo=escopo_filtro)
-
-    # Opções disponíveis para os filtros
-    escopos = (
-        EventosSge.objects.values_list('escopo', flat=True).distinct().order_by('escopo')
-    )
-    anos = (
-        EventosSge.objects.values_list('ano', flat=True).distinct().order_by('-ano')
-    )
-
-    return render(request, 'eventos/sge_list.html', {
-        'eventos': eventos,
-        'anos': anos,
-        'escopos': escopos
-    })
+    def post(self, request):
+        serializer = ArenaClientSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-def index(request):
-    return render(request, 'base.html')
+class ArenaClientDetailAPIView(APIView):
+    def get(self, request, pk):
+        instance = get_object_or_404(ArenaClient, pk=pk)
+        serializer = ArenaClientSerializer(instance)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        instance = get_object_or_404(ArenaClient, pk=pk)
+        serializer = ArenaClientSerializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        instance = get_object_or_404(ArenaClient, pk=pk)
+        serializer = ArenaClientSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        instance = get_object_or_404(ArenaClient, pk=pk)
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-def preview_view(request):
-    return render(request, 'preview.html')
+class ArenaWebhookAPIView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+        serializer = ArenaWebhookRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = ingest_arena_webhook(serializer.validated_data)
+        return Response(result)
 
 
-def pbi_view(request):
-    return render(request, 'polls/pbi.html')
+class ArenaSportEventSyncAPIView(APIView):
+    def post(self, request):
+        serializer = ArenaClientSyncRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = sync_sport_events(serializer.validated_data["arena_client_id"])
+        return Response(result, status=status.HTTP_200_OK)
 
 
-@csrf_exempt
-def arena_receiver(request):
-
-    if request.method != "POST":
-        return JsonResponse({"status": "error", "message": "Method not allowed"}, status=405)
-
-    try:
-        data = json.loads(request.body)
-        print('webhook recebido', data)
-    except json.JSONDecodeError:
-        return JsonResponse({"status": "error", "message": "Invalid JSON"}, status=400)
-
-    WebhookPayload.objects.create(payload=data)
-    handle_webhook(data)
-
-    return JsonResponse({"status": "success", "message": "Webhook received"}, status=200)
+class ArenaEventStructureSyncAPIView(APIView):
+    def post(self, request):
+        serializer = ArenaEventSyncRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = sync_event_structure(
+            serializer.validated_data["arena_client_id"],
+            serializer.validated_data["arena_event_id"],
+        )
+        return Response(result, status=status.HTTP_200_OK)
 
 
-def arena_show(request):
-    lutas_json(request)
-    return render(request, 'polls/arena-web-hooking-show.html')
+class ArenaSportEventListAPIView(APIView):
+    def get(self, request):
+        arena_client_id = request.query_params.get("arena_client_id")
+        queryset = ArenaSportEvent.objects.all().order_by("id")
+        if arena_client_id:
+            queryset = queryset.filter(arena_client_id=arena_client_id)
+        paginator = ArenaSportEventPagination()
+        page = paginator.paginate_queryset(queryset, request, view=self)
+        serializer = ArenaSportEventSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
-def lutas_json(request):
-    lutas = list(Luta.objects.values())
-    return JsonResponse({'lutas': lutas})
+class ArenaFightListAPIView(APIView):
+    def get(self, request):
+        arena_event_id = request.query_params.get("arena_event_id")
+        queryset = ArenaFight.objects.select_related("arena_sport_event_weight_category").order_by("id")
+        if arena_event_id:
+            queryset = queryset.filter(arena_sport_event_weight_category__arena_sport_event__event_id=str(arena_event_id))
+        serializer = ArenaFightSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
-# Listagem
-def credentials_list(request):
-    creds = CredentialsArena.objects.all()
-    return render(request, "polls/credentials/list.html", {"creds": creds})
-
-
-# Cadastro
-def credentials_create(request):
-    if request.method == "POST":
-        form = CredentialsArenaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("polls:credentials_list")
-    else:
-        form = CredentialsArenaForm()
-    return render(request, "polls/credentials/form.html", {"form": form})
-
-
-# Edição
-def credentials_edit(request, pk):
-    cred = get_object_or_404(CredentialsArena, pk=pk)
-    if request.method == "POST":
-        form = CredentialsArenaForm(request.POST, instance=cred)
-        if form.is_valid():
-            form.save()
-            return redirect("polls:credentials_list")
-    else:
-        form = CredentialsArenaForm(instance=cred)
-    return render(request, "polls/credentials/form.html", {"form": form})
-
-
-# Exclusão
-def credentials_delete(request, pk):
-    cred = get_object_or_404(CredentialsArena, pk=pk)
-    if request.method == "POST":
-        cred.delete()
-        return redirect("polls:credentials_list")
-    return render(request, "polls/credentials/confirm_delete.html", {"cred": cred})
-
-
-def sync_eventos_sge(request):
-    if request.method == "GET":
-        process_eventos_sge()
-        return redirect("polls:eventos_sge_list")
-
-    else:
-        return redirect("polls:eventos_sge_list")
-
-
-def eventos_arena_list(request, pk):
-    # Primeiro garante que a credencial existe
-    credencial = get_object_or_404(CredentialsArena, pk=pk)
-
-    # Pega todos os eventos associados a essa credencial
-    eventos = EventosArena.objects.filter(credencial=credencial)
-
-    return render(
-        request,
-        "eventos/arena_list.html",
-        {
-            "eventos": eventos,
-            "credencial": credencial  # opcional, para exibir info da credencial na página
-        }
-    )
-
-@require_POST
-def associate_sge_arena_event(request, pk_arena, pk_sge):
-    evento_arena = get_object_or_404(EventosArena, pk=pk_arena)
-    evento_sge = get_object_or_404(EventosSge, pk=pk_sge)
-
-    # Evitar duplicatas
-    if evento_sge in evento_arena.eventos_sge.all():
-        messages.warning(request, "Esse evento SGE já está associado a esse evento Arena.")
-    else:
-        evento_arena.eventos_sge.add(evento_sge)
-        messages.success(request, f"Evento SGE '{evento_sge.descricao}' associado com sucesso ao evento Arena '{evento_arena.nome_evento}'.")
-
-    return redirect("detalhe_evento_arena", pk=pk_arena)
-
-
-def select_arena_for_sge(request, pk_sge):
-    evento_sge = get_object_or_404(EventosSge, pk=pk_sge)
-    eventos_arena = EventosArena.objects.all().order_by("nome_evento")
-
-    if request.method == "POST":
-        pk_arena = request.POST.get("pk_arena")
-        evento_arena = get_object_or_404(EventosArena, pk=pk_arena)
-
-        # Evitar duplicação
-        if evento_sge in evento_arena.eventos_sge.all():
-            messages.warning(request, "Esse evento já está associado.")
-        else:
-            evento_arena.eventos_sge.add(evento_sge)
-            messages.success(
-                request,
-                f"Evento '{evento_sge.descricao}' associado com sucesso a '{evento_arena.nome_evento}'."
-            )
-
-        return redirect("polls:eventos_sge_list")
-
-    return render(request, "eventos/associate_arena_event.html", {
-        "evento_sge": evento_sge,
-        "eventos_arena": eventos_arena
-    })
-
-
-def select_sge_for_arena(request, pk_arena):
-    evento_arenaa = get_object_or_404(EventosArena, pk=pk_arena)
-    eventos_sge = EventosSge.objects.all().order_by("data_fim")
-
-    if request.method == "POST":
-        pk_sge = request.POST.get("pk_sge")
-        eventos_sge = get_object_or_404(EventosSge, pk=pk_sge)
-
-        # Evitar duplicação
-        if evento_sge in evento_arena.eventos_sge.all():
-            messages.warning(request, "Esse evento já está associado.")
-        else:
-            evento_arena.eventos_sge.add(evento_sge)
-            messages.success(
-                request,
-                f"Evento '{evento_sge.descricao}' associado com sucesso a '{evento_arena.nome_evento}'."
-            )
-
-        return redirect("associate_arena_event", pk_sge=pk_sge)
-
-    return render(request, "eventos/associate_arena_event.html", {
-        "evento_sge": evento_sge,
-        "eventos_arena": eventos_arena
-    })
+class ArenaFighterListAPIView(APIView):
+    def get(self, request):
+        fight_id = request.query_params.get("fight_id")
+        queryset = ArenaFighter.objects.select_related("fight").order_by("id")
+        if fight_id:
+            queryset = queryset.filter(fight__fight_id=str(fight_id))
+        serializer = ArenaFighterSerializer(queryset, many=True)
+        return Response(serializer.data)

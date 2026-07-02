@@ -68,6 +68,12 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const ArenaEventsList = React.lazy(() => import('./views/arena/events/ArenaEventsList'))
+const ArenaClients = React.lazy(() => import('./views/arena/clients/ArenaClients'))
+const ArenaSync = React.lazy(() => import('./views/arena/sync/ArenaSync'))
+const ArenaFightsList = React.lazy(() => import('./views/arena/fights/ArenaFightsList'))
+const ArenaFightersList = React.lazy(() => import('./views/arena/fighters/ArenaFightersList'))
+const ArenaBridgeSync = React.lazy(() => import('./views/arena/bridge/ArenaBridgeSync'))
 
 /**
  * Array of route configuration objects
@@ -134,6 +140,12 @@ export const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/arena/clients', name: 'Arena Clients', element: ArenaClients },
+  { path: '/arena/sync', name: 'Arena Sync', element: ArenaSync },
+  { path: '/arena/bridge', name: 'Arena Bridge Sync', element: ArenaBridgeSync },
+  { path: '/arena/events', name: 'Arena Events', element: ArenaEventsList },
+  { path: '/arena/fights', name: 'Arena Fights', element: ArenaFightsList },
+  { path: '/arena/fighters', name: 'Arena Fighters', element: ArenaFightersList },
 ]
 
 export default routes
