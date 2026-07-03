@@ -69,3 +69,18 @@ class AgeGroupMapping(models.Model):
         return any(var.upper().strip() == sge_upper for var in self.sge_variations)
 
 
+class SyncEstado(models.Model):
+    nome = models.TextField(primary_key=True)
+    pagina_atual = models.IntegerField()
+    total_paginas = models.IntegerField(blank=True, null=True)
+    status = models.TextField()
+    updated_at = models.DateTimeField(blank=True, null=True)
+    indice_peso_atual = models.IntegerField(blank=True, null=True)
+    total_pesos = models.IntegerField(blank=True, null=True)
+    ano_atual = models.IntegerField(blank=True, null=True)
+    grupo_atual = models.TextField(blank=True, null=True)
+    id_classe_peso_atual = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'sync_estado'
