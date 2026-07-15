@@ -1,10 +1,11 @@
+from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 
-from .models import ArenaClient, ArenaFight, ArenaFighter, ArenaSportEvent
+from .models import ArenaClient, ArenaFight, ArenaFighter, ArenaSportEvent, Tunnel
 from .serializers import (
     ArenaClientSerializer,
     ArenaClientSyncRequestSerializer,
@@ -13,6 +14,7 @@ from .serializers import (
     ArenaFighterSerializer,
     ArenaSportEventSerializer,
     ArenaWebhookRequestSerializer,
+    TunnelRegisterSerializer,
 )
 from .services.sync import sync_event_structure, sync_sport_events
 from .services.webhook_ingress import ingest_arena_webhook
@@ -123,3 +125,33 @@ class ArenaFighterListAPIView(APIView):
             queryset = queryset.filter(fight__fight_id=str(fight_id))
         serializer = ArenaFighterSerializer(queryset, many=True)
         return Response(serializer.data)
+    
+
+class TunnelRegisterAPIView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+
+        serializer = TunnelRegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.validated_data
+
+        tunnel = Tunnel.objects.get(instance_id=data["instance_id"])
+
+        tunnel.status = data["status"]
+        tunnel.public_url = (data.get("public_url", None))
+        tunnel.last_seen = timezone.now()
+        tunnel.save(
+            update_fields=[
+                "status",
+                "public_url",
+                "last_seen"
+            ]
+        )
+
+        return Response({
+            "message": "Tunnel updated"
+        })

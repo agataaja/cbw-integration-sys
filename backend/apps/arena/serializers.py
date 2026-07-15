@@ -7,6 +7,7 @@ from .models import (
     ArenaSportEvent,
     ArenaSportEventWeightCategory,
     ArenaWebhookPayload,
+    Tunnel, 
 )
 
 
@@ -60,3 +61,9 @@ class ArenaClientSyncRequestSerializer(serializers.Serializer):
 class ArenaEventSyncRequestSerializer(serializers.Serializer):
     arena_client_id = serializers.IntegerField(min_value=1)
     arena_event_id = serializers.CharField()
+
+
+class TunnelRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tunnel
+        fields = "__all__"

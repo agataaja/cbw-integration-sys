@@ -2,7 +2,7 @@
 Serializers for SGE app models and external API interactions.
 """
 from rest_framework import serializers
-from .models import ResultadoSGE, LutaSGE
+from .models import ResultadoSGE, LutaSGE, InscricoesEventosSGE, RankingSGE
 
 
 class ResultadoSGESerializer(serializers.ModelSerializer):
@@ -36,6 +36,38 @@ class ResultadoSGESerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
 
+
+
+class InscricaoSGESerializer(serializers.ModelSerializer):
+    """
+    Serializer for InscricoesEventosSGE model (inscricao-arena endpoint).
+    Handles athlete registration data from Arena competitions.
+    """
+    class Meta:
+        model = InscricoesEventosSGE
+        fields = [
+            'id',
+            'id_evento',
+            'id_atleta',
+            'id_evento_arena',
+            'created_by',
+            'updated_by',
+            'created_at',
+            'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
+
+class RankingSGESerializer(serializers.ModelSerializer):
+    """
+    Serializer for RankingSGE model (ranking-arena endpoint).
+    Handles ranking data from Arena competitions.
+    """
+    class Meta:
+        model = RankingSGE
+        fields = [
+          
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'updated_by']
 
 class LutaSGESerializer(serializers.ModelSerializer):
     """

@@ -9,6 +9,7 @@ from .views import (
     ArenaSportEventListAPIView,
     ArenaSportEventSyncAPIView,
     ArenaWebhookAPIView,
+    TunnelRegisterAPIView,
 )
 app_name = 'apps.arena'
 
@@ -21,4 +22,5 @@ urlpatterns = [
     path('sport-events/', ArenaSportEventListAPIView.as_view(), name='arena-sport-events-list'),
     path('fights/', ArenaFightListAPIView.as_view(), name='arena-fights-list'),
     path('fighters/', ArenaFighterListAPIView.as_view(), name='arena-fighters-list'),
+    path('tunnel/register/', TunnelRegisterAPIView.as_view(), name='arena-tunnel-register'),
 ]
