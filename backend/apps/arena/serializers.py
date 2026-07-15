@@ -66,4 +66,4 @@ class ArenaEventSyncRequestSerializer(serializers.Serializer):
 class TunnelRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tunnel
-        fields = "__all__"
+        fields = ["instance", "status", "public_url", "provider"]
