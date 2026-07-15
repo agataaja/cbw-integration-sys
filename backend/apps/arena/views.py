@@ -139,7 +139,7 @@ class TunnelRegisterAPIView(APIView):
 
         data = serializer.validated_data
 
-        tunnel = Tunnel.objects.get(instance_id=data["instance_id"])
+        tunnel = Tunnel.objects.get(instance=data["instance"])
 
         tunnel.status = data["status"]
         tunnel.public_url = (data.get("public_url", None))
