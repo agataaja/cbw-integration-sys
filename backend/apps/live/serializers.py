@@ -56,7 +56,20 @@ class ArenaFighterSerializer(serializers.ModelSerializer):
 
 
 
-class TunnelRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tunnel
-        fields = ["instance", "status", "public_url", "provider"]
+class TunnelRegisterSerializer(serializers.Serializer):
+    instance = serializers.CharField(max_length=255)
+
+    status = serializers.ChoiceField(
+        choices=Tunnel.Status.choices
+    )
+
+    provider = serializers.ChoiceField(
+        choices=Tunnel.Provider.choices,
+        default=Tunnel.Provider.NGROK,
+    )
+
+    public_url = serializers.URLField(
+        required=False,
+        allow_null=True,
+        allow_blank=True,
+    )
