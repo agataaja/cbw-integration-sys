@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/integration/', include('apps.integration.urls')),
     path('api/normalization/', include('apps.normalization.urls')),
     path('api/sge/', include('apps.sge.urls')),
+    path('api/live/', include('apps.live.urls')),
     path('admin/', admin.site.urls),
 
     path("api/schema/", 

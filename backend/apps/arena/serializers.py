@@ -5,29 +5,13 @@ from .models import (
     ArenaFight,
     ArenaFighter,
     ArenaSportEvent,
-    ArenaSportEventWeightCategory,
-    ArenaWebhookPayload,
-    Tunnel, 
-)
+    ArenaSportEventWeightCategory,)
 
 
 class ArenaClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArenaClient
         fields = "__all__"
-
-
-class ArenaWebhookPayloadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ArenaWebhookPayload
-        fields = "__all__"
-
-
-class ArenaWebhookRequestSerializer(serializers.Serializer):
-    entity = serializers.CharField()
-    id = serializers.CharField(required=False, allow_blank=True, allow_null=True)
-    sportEventId = serializers.CharField(required=False, allow_blank=True, allow_null=True)
-    audienceName = serializers.CharField(required=False, allow_blank=True, allow_null=True)
 
 
 class ArenaSportEventSerializer(serializers.ModelSerializer):
@@ -63,7 +47,3 @@ class ArenaEventSyncRequestSerializer(serializers.Serializer):
     arena_event_id = serializers.CharField()
 
 
-class TunnelRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tunnel
-        fields = ["instance", "status", "public_url", "provider"]

@@ -744,12 +744,24 @@ def sync_bridge_fights_to_sge(credentials_pk: int, event_bridge_id: int) -> dict
         
         logger.debug(f"[sync_bridge_fights_to_sge] POSTing fight {payload.get('id')} to {SGE_FIGHT_API_URL}")
         logger.debug(f"[sync_bridge_fights_to_sge] Payload: {json.dumps(payload, default=str)}")
-        response = requests.post(
-            SGE_FIGHT_API_URL,
+
+        
+        response = requests.put(
+            f"{SGE_FIGHT_API_URL}/{payload.get('id')}",
             data=json.dumps(payload, default=str),  # Added default=str to handle any non-serializable objects
             headers={"Content-Type": "application/json"},
             timeout=30,
         )
+
+        if response.status_code not in (200, 201):
+            response = requests.post(
+                SGE_FIGHT_API_URL,
+                data=json.dumps(payload, default=str),  # Added default=str to handle any non-serializable objects
+                headers={"Content-Type": "application/json"},
+                timeout=30,
+            )
+
+        
         logger.info(f"[sync_bridge_fights_to_sge] Response for fight {payload.get('id')}: status={response.status_code}, text={response.text[:200]}")
         synced.append({
             "status_code": response.status_code,

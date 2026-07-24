@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.normalization',
     'apps.integration',
     'apps.sge',
+    'apps.live',
     ]
 
 MIDDLEWARE = [

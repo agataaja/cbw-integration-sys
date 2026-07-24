@@ -1,0 +1,1017 @@
+{
+  'hierarchy': [
+    {
+      'sportEventWeightCategory': {
+        'sportAlternateName': 'WW',
+        'id': '1f0be5e5-306a-6c2c-9be8-c3adb77647df',
+        'name': '31 kg',
+        'blockchainIds': {
+          'id': [
+            {
+              'id': '23778292',
+              'time': '2025-11-11T20:11:59+00:00'
+            }
+          ],
+          'exception': ''
+        }
+      },
+      'fighter1': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'MARIA LUIZA DINIZ DE ALBUQUERQUE',
+        'displayName': 'MARIA LUIZA  .',
+        'givenName': 'Maria Luiza Diniz De',
+        'familyName
+        ': '
+        ALBUQUERQUE
+        ', '
+        teamAlternateName
+        ': '
+        PB
+        ', '
+        teamName
+        ': '
+        PARAÍBA
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 1, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technicalPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-28d0-63d6-92bd-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-28cf-6d46-a349-c3adb77647df
+        ', '
+        drawNumber
+        ': 20, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None},
+        'fighter2': {
+          'nbChallenges': {
+            'group': 0,
+            'finals': 0
+          },
+          'fullName': 'GABRIELA MOUTTA LIMA',
+          'displayName': 'GABRIELA MOU .',
+          'givenName': 'Gabriela Moutta',
+          'familyName': 'LIMA',
+          'teamAlternateName': 'RJ',
+          'teamName': 'RIO DE JANEIRO',
+          'robinGroup': {
+            'group': 'A',
+            'drawRank': 2,
+            'wins': 0,
+            'classificationPoints': 0,
+            'winEasy': 0,
+            'winSuperiority': 0,
+            'technicalPointsFor': 0,
+            'technicalPointAgainst': 0
+          },
+          'id': '1f0b
+          e5e5-2831-6984-8298-c3adb77647df
+          ', '
+          athleteId
+          ': '
+          1f0be5e5-2831-631c-96de-c3adb77647df
+          ', '
+          drawNumber
+          ': 135, '
+          seedNumber
+          ': 0, '
+          rankingException
+          ': None}, '
+          sportEventTeam1
+          ': {}, '
+          sportEventTeam2
+          ': {}, '
+          fightNumber
+          ': 1, '
+          parentFightNumber1
+          ': None, '
+          parentFightNumber2
+          ': None, '
+          fightMat
+          ': {'
+          countOpenMatches
+          ': 0}, '
+          status
+          ': 2, '
+          round
+          ': '
+          Round
+          1
+          ', '
+          qualifying
+          ': False, '
+          teamFightId
+          ': None, '
+          roundWeight
+          ': 1, '
+          repechageWeight
+          ': None,
+          'repechageSection': None,
+          'number': 1
+        },,
+    {
+      'sportEventWeightCategory': {
+        'sportAlternateName': 'WW',
+        'id': '1f0be5e5-306a-6c2c-9be8-c3adb77647df',
+        'name': '31 kg',
+        'blockchainIds': {
+          'id': [
+            {
+              'id': '23778292',
+              'time': '2025-11-11T20:11:59+00:00'
+            }
+          ],
+          'exception': ''
+        }
+      },
+      'fighter1': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'LIA MARINHO DE ANDRADE',
+        'displayName': 'LIA MARINHO  .',
+        'givenName': 'Lia Ma
+        rinho
+        De
+        ', '
+        familyName
+        ': '
+        ANDRADE
+        ', '
+        teamAlternateName
+        ': '
+        RJ
+        ', '
+        teamName
+        ': '
+        RIO
+        DE
+        JANEIRO
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 3, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technicalPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-2e5b-6378-8173-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-2e5a-6acc-af3d-c3adb77647df
+        ', '
+        drawNumber
+        ': 180, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ':
+        None
+      },
+      'fighter2': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'SHAMMY VITORIA COSTA',
+        'displayName': 'SHAMMY VITOR .',
+        'givenName': 'Shammy Vitoria',
+        'familyName': 'COSTA',
+        'teamAlternateName': 'RJ',
+        'teamName': 'RIO DE JANEIRO',
+        'robinGroup': {
+          'group': 'A',
+          'drawRank': 4,
+          'wins': 0,
+          'classificationPoints': 0,
+          'winEasy': 0,
+          'winSuperiority': 0,
+          'technicalPointsFor': 0,
+          'technicalPointAgainst': 0
+        },
+        'id
+        ': '
+        1f0be5e5-27fd-6f58-9505-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-27fd-692c-8f53-c3adb77647df
+        ', '
+        drawNumber
+        ': 223, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None}, '
+        sportEventTeam1
+        ': {}, '
+        sportEventTeam2
+        ': {}, '
+        fightNumber
+        ': 2, '
+        parentFightNumber1
+        ': None, '
+        parentFightNumber2
+        ': None, '
+        fightMat
+        ': {'
+        countOpenMatches
+        ': 0}, '
+        status
+        ': 2, '
+        round
+        ': '
+        Round
+        1
+        ', '
+        qualifying
+        ': False, '
+        teamFightId
+        ': None, '
+        roundWeight
+        ': 1, '
+        repechag
+        eWeight
+        ': None, '
+        repechageSection
+        ': None, '
+        number
+        ': 2}, {'
+        sportEventWeightCategory
+        ': {'
+        sportAlternateName
+        ': '
+        WW
+        ', '
+        id
+        ': '
+        1f0be5e5-306a-6c2c-9be8-c3adb77647df
+        ', '
+        name
+        ': '
+        31
+        kg
+        ', '
+        blockchainIds
+        ': {'
+        id
+        ': [{'
+        id
+        ': '
+        23778292
+        ', '
+        time
+        ': '
+        2025-11-11T20: 11
+        :
+        59
+        +
+        00: 00
+        '}], '
+        exception
+        ': '
+        '}}, '
+        fighter1
+        ': {'
+        nbChallenges
+        ': {'
+        group
+        ': 0, '
+        finals
+        ': 0}, '
+        fullName
+        ': '
+        MARIA
+        LUIZA
+        DINIZ
+        DE
+        ALBUQUERQUE
+        ', '
+        displayName
+        ': '
+        MARIA
+        LUIZA
+        .
+        ', '
+        g
+        ivenName
+        ': '
+        Maria
+        Luiza
+        Diniz
+        De
+        ', '
+        familyName
+        ': '
+        ALBUQUERQUE
+        ', '
+        teamAlternateName
+        ': '
+        PB
+        ', '
+        teamName
+        ': '
+        PARAÍBA
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 1, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technicalPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-28d0-63d6-92bd-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-28cf-6d46-a349-c3adb77647df
+        ', '
+        drawNumber
+        ': 20, '
+        seedNumber
+        ': 0,
+        'rankingException': None
+      },
+      'fighter2': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'LIA MARINHO DE ANDRADE',
+        'displayName': 'LIA MARINHO  .',
+        'givenName': 'Lia Marinho De',
+        'familyName': 'ANDRADE',
+        'teamAlternateName': 'RJ',
+        'teamName': 'RIO DE JANEIRO',
+        'robinGroup': {
+          'group': 'A',
+          'drawRank': 3,
+          'wins': 0,
+          'classificationPoints': 0,
+          'winEasy': 0,
+          'winSuperiority': 0,
+          'technicalPointsFor': 0,
+          'technic
+          alPointAgainst
+          ': 0}, '
+          id
+          ': '
+          1f0be5e5-2e5b-6378-8173-c3adb77647df
+          ', '
+          athleteId
+          ': '
+          1f0be5e5-2e5a-6acc-af3d-c3adb77647df
+          ', '
+          drawNumber
+          ': 180, '
+          seedNumber
+          ': 0, '
+          rankingException
+          ': None}, '
+          sportEventTeam1
+          ': {}, '
+          sportEventTeam2
+          ': {}, '
+          fightNumber
+          ': 3, '
+          parentFightNumber1
+          ': None, '
+          parentFightNumber2
+          ': None, '
+          fightMat
+          ': {'
+          countOpenMatches
+          ': 0}, '
+          status
+          ': 2, '
+          round
+          ': '
+          Round
+          2
+          ', '
+          qualifying
+          ': False, '
+          teamFightId
+          ': None, '
+          ro
+          undWeight
+          ': 2, '
+          repechageWeight
+          ': None, '
+          repechageSection
+          ': None, '
+          number
+          ': 3}, {'
+          sportEventWeightCategory
+          ': {'
+          sportAlternateName
+          ': '
+          WW
+          ', '
+          id
+          ': '
+          1f0be5e5-306a-6c2c-9be8-c3adb77647df
+          ', '
+          name
+          ': '
+          31
+          kg
+          ', '
+          blockchainIds
+          ': {'
+          id
+          ': [{'
+          id
+          ': '
+          23778292
+          ', '
+          time
+          ': '
+          2025-11-11T20: 11
+          :
+          59
+          +
+          00: 00
+          '}], '
+          exception
+          ': '
+          '}}, '
+          fighter1
+          ': {'
+          nbChallenges
+          ': {'
+          group
+          ': 0, '
+          finals
+          ': 0}, '
+          fullName
+          ': '
+          GABRIELA
+          MOUTTA
+          LIMA
+          ', '
+          displayName
+          ': '
+          GABRIEL
+          A
+          MOU
+          .
+          ', '
+          givenName
+          ': '
+          Gabriela
+          Moutta
+          ', '
+          familyName
+          ': '
+          LIMA
+          ', '
+          teamAlternateName
+          ': '
+          RJ
+          ', '
+          teamName
+          ': '
+          RIO
+          DE
+          JANEIRO
+          ', '
+          robinGroup
+          ': {'
+          group
+          ': '
+          A
+          ', '
+          drawRank
+          ': 2, '
+          wins
+          ': 0, '
+          classificationPoints
+          ': 0, '
+          winEasy
+          ': 0, '
+          winSuperiority
+          ': 0, '
+          technicalPointsFor
+          ': 0, '
+          technicalPointAgainst
+          ': 0}, '
+          id
+          ': '
+          1f0be5e5-2831-6984-8298-c3adb77647df
+          ', '
+          athleteId
+          ': '
+          1f0be5e5-2831-631c-96de-c3adb77647df
+          ', '
+          drawNumber
+          ': 135, '
+          seedNum
+          ber
+          ': 0, '
+          rankingException
+          ': None}, '
+          fighter2
+          ': {'
+          nbChallenges
+          ': {'
+          group
+          ': 0, '
+          finals
+          ': 0}, '
+          fullName
+          ': '
+          SHAMMY
+          VITORIA
+          COSTA
+          ', '
+          displayName
+          ': '
+          SHAMMY
+          VITOR
+          .
+          ', '
+          givenName
+          ': '
+          Shammy
+          Vitoria
+          ', '
+          familyName
+          ': '
+          COSTA
+          ', '
+          teamAlternateName
+          ': '
+          RJ
+          ', '
+          teamName
+          ': '
+          RIO
+          DE
+          JANEIRO
+          ', '
+          robinGroup
+          ': {'
+          group
+          ': '
+          A
+          ', '
+          drawRank
+          ': 4, '
+          wins
+          ': 0, '
+          classificationPoints
+          ': 0, '
+          winEasy
+          ': 0, '
+          winSuperiority
+          ': 0, '
+          technicalPointsFor
+          ': 0, '
+          tec
+          hnicalPointAgainst
+          ': 0}, '
+          id
+          ': '
+          1f0be5e5-27fd-6f58-9505-c3adb77647df
+          ', '
+          athleteId
+          ': '
+          1f0be5e5-27fd-692c-8f53-c3adb77647df
+          ', '
+          drawNumber
+          ': 223, '
+          seedNumber
+          ': 0, '
+          rankingException
+          ': None}, '
+          sportEventTeam1
+          ': {}, '
+          sportEventTeam2
+          ': {}, '
+          fightNumber
+          ': 4, '
+          parentFightNumber1
+          ': None, '
+          parentFightNumber2
+          ': None, '
+          fightMat
+          ': {'
+          countOpenMatches
+          ': 0}, '
+          status
+          ': 2, '
+          round
+          ': '
+          Round
+          2
+          ', '
+          qualifying
+          ': False, '
+          teamFightId
+          ': None,
+          'roundWeight': 2,
+          'repechageWeight': None,
+          'repechageSection': None,
+          'number': 4
+        },,
+    {
+      'sportEventWeightCategory': {
+        'sportAlternateName': 'WW',
+        'id': '1f0be5e5-306a-6c2c-9be8-c3adb77647df',
+        'name': '31 kg',
+        'blockchainIds': {
+          'id': [
+            {
+              'id': '23778292',
+              'time': '2025-11-11T20:11:59+00:00'
+            }
+          ],
+          'exception': ''
+        }
+      },
+      'fighter1': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'MARIA LUIZA DINIZ DE ALBUQUERQUE',
+        'displa
+        yName
+        ': '
+        MARIA
+        LUIZA
+        .
+        ', '
+        givenName
+        ': '
+        Maria
+        Luiza
+        Diniz
+        De
+        ', '
+        familyName
+        ': '
+        ALBUQUERQUE
+        ', '
+        teamAlternateName
+        ': '
+        PB
+        ', '
+        teamName
+        ': '
+        PARAÍBA
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 1, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technicalPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-28d0-63d6-92bd-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-28cf-6d46-a349-c3adb77647df
+        ', '
+        drawN
+        umber
+        ': 20, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None}, '
+        fighter2
+        ': {'
+        nbChallenges
+        ': {'
+        group
+        ': 0, '
+        finals
+        ': 0}, '
+        fullName
+        ': '
+        SHAMMY
+        VITORIA
+        COSTA
+        ', '
+        displayName
+        ': '
+        SHAMMY
+        VITOR
+        .
+        ', '
+        givenName
+        ': '
+        Shammy
+        Vitoria
+        ', '
+        familyName
+        ': '
+        COSTA
+        ', '
+        teamAlternateName
+        ': '
+        RJ
+        ', '
+        teamName
+        ': '
+        RIO
+        DE
+        JANEIRO
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 4, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technica
+        lPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-27fd-6f58-9505-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-27fd-692c-8f53-c3adb77647df
+        ', '
+        drawNumber
+        ': 223, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None}, '
+        sportEventTeam1
+        ': {}, '
+        sportEventTeam2
+        ': {}, '
+        fightNumber
+        ': 5, '
+        parentFightNumber1
+        ': None, '
+        parentFightNumber2
+        ': None, '
+        fightMat
+        ': {'
+        countOpenMatches
+        ': 0}, '
+        status
+        ': 2, '
+        round
+        ': '
+        Round
+        3
+        ', '
+        qualifying
+        ': False,
+        'teamFightId': None,
+        'roundWeight': 3,
+        'repechageWeight': None,
+        'repechageSection': None,
+        'number': 5
+      },
+    {
+      'sportEventWeightCategory': {
+        'sportAlternateName': 'WW',
+        'id': '1f0be5e5-306a-6c2c-9be8-c3adb77647df',
+        'name': '31 kg',
+        'blockchainIds': {
+          'id': [
+            {
+              'id': '23778292',
+              'time': '2025-11-11T20:11:59+00:00'
+            }
+          ],
+          'exception': ''
+        }
+      },
+      'fighter1': {
+        'nbChallenges': {
+          'group': 0,
+          'finals': 0
+        },
+        'fullName': 'GABRIELA MOUTTA LIMA',
+        'displayName': 'GABRIELA MOU .',
+        'givenName': 'Gabriela Moutta',
+        'familyName': 'LIMA',
+        'teamAlternateName': 'RJ',
+        'teamName': 'RIO DE JANEIRO',
+        'robinGroup': {
+          'group': 'A',
+          'drawRank': 2,
+          'wins': 0,
+          'classificationPoints': 0,
+          'winEasy': 0,
+          'winSuperiority': 0,
+          'technicalPointsFor': 0,
+          'technicalPointAgainst': 0
+        },
+        'id': '1f0be5e5-2831-6984-8298-c3adb77647df',
+        'athleteId': '1f0be5e5-2831-631c-96de-c3adb77647df',
+        'dr
+        awNumber
+        ': 135, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None}, '
+        fighter2
+        ': {'
+        nbChallenges
+        ': {'
+        group
+        ': 0, '
+        finals
+        ': 0}, '
+        fullName
+        ': '
+        LIA
+        MARINHO
+        DE
+        ANDRADE
+        ', '
+        displayName
+        ': '
+        LIA
+        MARINHO
+        .
+        ', '
+        givenName
+        ': '
+        Lia
+        Marinho
+        De
+        ', '
+        familyName
+        ': '
+        ANDRADE
+        ', '
+        teamAlternateName
+        ': '
+        RJ
+        ', '
+        teamName
+        ': '
+        RIO
+        DE
+        JANEIRO
+        ', '
+        robinGroup
+        ': {'
+        group
+        ': '
+        A
+        ', '
+        drawRank
+        ': 3, '
+        wins
+        ': 0, '
+        classificationPoints
+        ': 0, '
+        winEasy
+        ': 0, '
+        winSuperiority
+        ': 0, '
+        technicalPointsFor
+        ': 0, '
+        technicalPointAgainst
+        ': 0}, '
+        id
+        ': '
+        1f0be5e5-2e5b-6378-8173-c3adb77647df
+        ', '
+        athleteId
+        ': '
+        1f0be5e5-2e5a-6acc-af3d-c3adb77647df
+        ', '
+        drawNumber
+        ': 180, '
+        seedNumber
+        ': 0, '
+        rankingException
+        ': None}, '
+        sportEventTeam1
+        ': {}, '
+        sportEventTeam2
+        ': {}, '
+        fightNumber
+        ': 6, '
+        parentFightNumber1
+        ': None, '
+        parentFightNumber2
+        ': None, '
+        fightMat
+        ': {'
+        countOpenMatches
+        ': 0}, '
+        status
+        ': 2, '
+        round
+        ': '
+        Round
+        3
+        ', '
+        qualifying
+        ': False, '
+        teamFightId
+        ': None, '
+        roundWeight
+        ': 3, '
+        repechageWeight
+        ': None, '
+        repechageSection
+        ': None, '
+        number
+        ': 6}], '
+        pendingFighters
+        ': []}
+    ]
+      }
